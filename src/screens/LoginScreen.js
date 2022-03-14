@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
-import { auth } from '../firebase/firebase.config'; 
+import { auth, persistance } from '../firebase/firebase.config'; 
 import { useNavigation } from '@react-navigation/core'
 
 
@@ -36,6 +36,7 @@ const LoginScreen = () => {
             .then(userCredentials =>{
                 const user = userCredentials.user;
             })
+            
             .catch(error => alert(error.message))
     }
 
@@ -44,10 +45,11 @@ const LoginScreen = () => {
             style={styles.container}
             behavior='padding'
         >
-            <View style={styles.card}>
+            <View >
+            <View><Text style={styles.headerText}>Sushi By You &#127843;</Text></View>
+            <View style={styles.loginBox}>
                 <View>
-                    <Text style={styles.headerText}>Sushi By You &#127843;</Text>
-                    <Text style={styles.subHeaderText}>A place to share and view Sushi</Text>
+                    <Text style={styles.subHeaderText}>Log In</Text>
                 </View>
                 <View style={styles.inputContainer}>
                     <TextInput
@@ -79,6 +81,7 @@ const LoginScreen = () => {
                     </TouchableOpacity>
                 </View>
             </View>
+            </View>
         </KeyboardAvoidingView>
   )
 }
@@ -88,24 +91,23 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#c7d9fc'
+        backgroundColor: 'white'
     },
     card: {
         width: '80%',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: 'white',
         padding: 5,
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        shadowOffset: {
-            width: 1,
-            height: 2,
-        },
-        shadowColor: '#000',
-        shadowRadius: 2,
-        shadowOpacity: 10,
-        //Android only
-        elevation: 3,
+    },
+    loginBox: {
+        borderColor: '#6c757d',
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        padding: 20,
     },
     headerText: {
         color: '#000000',
@@ -113,6 +115,7 @@ const styles = StyleSheet.create({
         //justifyContent: 'center',
         //alignContent: 'center',
         textAlign: 'center',
+        paddingBottom: 20,
     },
     subHeaderText: {
         color: '#000000',
@@ -120,31 +123,33 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     inputContainer: {
-        width: '80%',
+        width: '90%',
     },
     input: {
         backgroundColor: 'white',
         paddingHorizontal: 15,
         paddingVertical: 10,
-        borderRadius: 10,
+        borderRadius: 5,
         marginTop: 5,
-        borderColor: '#000',
+        borderColor: '#6c757d',
         borderWidth: 1,
     },
     buttonContainer: { 
-        width: '60%',
+        width: '70%',
         justifyContent: 'center',
         alignItems: 'center',
         
-        marginTop: 5,
+        marginTop: 10,
     },
     button: {
-        backgroundColor: '#8bd68f',
+        backgroundColor: '#007bff',
         minWidth: '100%',
         padding: 15,
-        borderRadius: 10,
+        borderRadius: 5,
+        
     },
     buttonText: {
+        color: 'white',
         textAlign: 'center',
         fontWeight: '700',
 
@@ -154,14 +159,15 @@ const styles = StyleSheet.create({
         width: '100%',
         marginTop: 5,
         padding: 15,
-        borderRadius: 10,
-        borderColor: '#8bd68f',
+        borderRadius: 5,
+        borderColor: '#007bff',
         borderWidth: 2,
 
     },
     buttonOutlineText: {
         textAlign: 'center',
         fontWeight: '700',
+        color: '#007bff'
     }
 });
 
